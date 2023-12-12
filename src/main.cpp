@@ -48,7 +48,7 @@ void setup()
     delay(500);
     digitalWrite(buzzer, LOW);
     for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
+    leds[i] = CRGB(255,255,255);  // Set the i'th LED to red
     FastLED.setBrightness(15);
     FastLED.show();  
       }
@@ -103,7 +103,32 @@ void rozni(){
         FastLED.show();
 
         for (int i = 0; i < NUM_LEDS; i++) {
-          leds[i] = CRGB::White;
+          leds[i] = CRGB(255,0,0);
+           FastLED.show();  
+    
+  }  
+    }
+
+
+     for(int j = 0; j<255; j++){
+        delay(100);
+        FastLED.show();
+
+        for (int i = 0; i < NUM_LEDS; i++) {
+          leds[i] = CRGB(255,0,j);
+           FastLED.show();  
+    
+  }  
+    }
+
+
+    
+     for(int j = 0; j<255; j++){
+        delay(100);
+        FastLED.show();
+
+        for (int i = 0; i < NUM_LEDS; i++) {
+          leds[i] = CRGB(255,j,255);
            FastLED.show();  
     
   }  
