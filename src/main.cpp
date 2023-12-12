@@ -10,10 +10,7 @@
 
 CRGB leds[NUM_LEDS];
 
-
-
 Ds1302 rtc(5, 2, 4);//RST, CLD, DAT
-/**/
 
 const static char* WeekDays[] =
 {
@@ -26,8 +23,10 @@ const static char* WeekDays[] =
     "Sunday"
 };
 
-
 int buzzer = 21;
+
+int targeted_hour = 5;
+int targeted_minute = 54;
 
 void setup()
 {
@@ -38,15 +37,39 @@ void setup()
 
     // initialize the RTC
     rtc.init();
+
+    // Start session
     digitalWrite(buzzer, HIGH);
+    for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::White;  // Set the i'th LED to red
+    FastLED.setBrightness(200);
+    FastLED.show();  
+      }
     delay(500);
     digitalWrite(buzzer, LOW);
+    for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::White;  // Set the i'th LED to red
+    FastLED.setBrightness(15);
+    FastLED.show();  
+      }
     delay(500);
     digitalWrite(buzzer, HIGH);
+    for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::White;  // Set the i'th LED to red
+    FastLED.setBrightness(200);
+    FastLED.show();  
+      }
     delay(500);
     digitalWrite(buzzer, LOW);
+    for (int i = 0; i < NUM_LEDS; i++) {
+    leds[i] = CRGB::White;  // Set the i'th LED to red
+    FastLED.setBrightness(0);
+    FastLED.show();  
+      }
     delay(500);
 
+
+    
   
     // test if clock is halted and set a date-time (see example 2) to start it
     if (rtc.isHalted())
@@ -55,11 +78,11 @@ void setup()
         /*
         Ds1302::DateTime dt = {
             .year = 23,
-            .month = Ds1302::MONTH_OCT,
-            .day = 26,
-            .hour = 22,
+            .month = Ds1302::MONTH_DEC,
+            .day = 7,
+            .hour = 18,
             .minute = 20,
-            .second = 20,
+            .second = 00,
             .dow = Ds1302::DOW_THU
         };
 
@@ -72,85 +95,57 @@ void setup()
 
 
 void rozni(){
-  static uint8_t last_second = 0;
-  Ds1302::DateTime now;
-  int hour = 11;
-  int minute = 11;
-  rtc.getDateTime(&now);
-   if(now.hour==hour && now.minute == minute && now.second==0){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(15);
-    FastLED.show();  
-      }
-    }
+  FastLED.setBrightness(0);
 
-    if(now.hour==hour && now.minute == minute && now.second==10){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(30);
-    FastLED.show();  
-      }
-    }
-
-    if(now.hour==hour && now.minute == minute && now.second==20){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(60);
-    FastLED.show();  
-      }
-    }
-
-
-    if(now.hour==hour && now.minute == minute && now.second==30){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(120);
-    FastLED.show();  
-      }
-    }
-
-    if(now.hour==hour && now.minute == minute && now.second==40){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(240);
-    FastLED.show();  
-      }
-    }
-
-if(now.hour==hour && now.minute == minute && now.second==50){
-    
-    
-    if (last_second != now.second)
-    {
-        last_second = now.second;
+  for(int j = 0; j<255; j++){
+    FastLED.setBrightness(j);
+        delay(120);
+        FastLED.show();
 
         for (int i = 0; i < NUM_LEDS; i++) {
-        leds[i] = CRGB::White;  // Set the i'th LED to red
-         FastLED.setBrightness(240);
-        FastLED.show();  
-          }
-
-       
-    }else{
-       for (int i = 0; i < NUM_LEDS; i++) {
-        leds[i] = CRGB::White;  // Set the i'th LED to red
-         FastLED.setBrightness(0);
-        FastLED.show();  
-          }
-    }
-}
-
- if(now.hour==hour && now.minute == minute+1 ){
-    for (int i = 0; i < NUM_LEDS; i++) {
-    leds[i] = CRGB::White;  // Set the i'th LED to red
-    FastLED.setBrightness(0);
-    FastLED.show();  
-      }
+          leds[i] = CRGB::White;
+           FastLED.show();  
+    
+  }  
     }
 
+  
+    
+
+   
+    }
+
+
+   
+void play(){
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(buzzer, LOW);
+    delay(500);
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(buzzer, LOW);
+    delay(500);
+    for(int i = 0; i<10;i++){
+      digitalWrite(buzzer, HIGH);
+      delay(200);
+      digitalWrite(buzzer, LOW);
+      delay(200);
+      digitalWrite(buzzer, HIGH);
+      delay(200);
+      digitalWrite(buzzer, LOW);
+      delay(200);
+    }
+    
 }
 
+void zhasni(){
+  Ds1302::DateTime now;
+  if(now.hour == targeted_hour && now.minute == targeted_minute+10){
+    FastLED.clear();  
+  
+  }
+}
 
 void loop()
 {
@@ -188,16 +183,11 @@ void loop()
     //delay(100);
    //rozni();
 
-   while (now.hour == 5 && now.minute == 50)
+   while (now.hour == targeted_hour && now.minute == targeted_minute)
    {
-    digitalWrite(buzzer, HIGH);
-    delay(500);
-    digitalWrite(buzzer, LOW);
-    delay(500);
-    digitalWrite(buzzer, HIGH);
-    delay(500);
-    digitalWrite(buzzer, LOW);
-    delay(500);
+    rozni();
+    play();
+    zhasni();
    }
    
 }
