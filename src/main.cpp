@@ -99,7 +99,7 @@ void rozni(){
 
   for(int j = 0; j<255; j++){
     FastLED.setBrightness(j);
-        delay(120);
+        delay(250);
         FastLED.show();
 
         for (int i = 0; i < NUM_LEDS; i++) {
@@ -186,7 +186,7 @@ void loop()
    while (now.hour == targeted_hour && now.minute == targeted_minute)
    {
     rozni();
-    play();
+    play();//ff
     zhasni();
    }
    
