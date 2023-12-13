@@ -2,7 +2,7 @@
 #define FASTLED_INTERNAL // add this before including FastLED.h
 #include <FastLED.h>
 #include <Ds1302.h>
-
+// push
 #define NUM_LEDS    60  // Number of LEDs in your strip
 #define DATA_PIN    13  // Pin where the data line is connected to
 #define LED_TYPE    WS2812B
